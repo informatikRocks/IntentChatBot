@@ -1,26 +1,26 @@
 {
-    "name": "Simon Lelonek",
-    "rolle": "TUM Student, Fullstack Web-Developer",
-    "standort": "Berlin, Deutschland (Remote möglich)",
-    "verfuegbarkeit": "Ab sofort",
-    "sprachen": [
-        "Deutsch (Muttersprache)",
-        "Englisch (Fließend)",
-        "Französisch (Fließend)"
-    ],
-    "socials": {
-        "github": "https://github.com/deinname",
-        "linkedin": "https://linkedin.com/in/deinname"
+    "profile": {
+        "name": "Simon Lelonek",
+        "role": "Python Developer",
+        "contact": "[EMAIL_ADDRESS]"
     },
-    "kernkompetenzen": [
-        "Python",
-        "Pytorch",
-        "Java",
-        "Docker",
-        "Spring Boot",
-        "React",
-        "Node.js",
-        "TypeScript",
-        "LLM Integration"
+    "projects": [
+        {
+            "name": "Portfolio Chatbot",
+            "description": "Ein KI-Bot mit FastAPI und spaCy.",
+            "tech_stack": [
+                "python",
+                "fastapi",
+                "spacy"
+            ]
+        },
+        {
+            "name": "Dashboard",
+            "description": "Sales Dashboard.",
+            "tech_stack": [
+                "react",
+                "typescript"
+            ]
+        }
     ]
 }
