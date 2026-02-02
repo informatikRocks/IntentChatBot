@@ -5,8 +5,11 @@ from app.api.schemas import ChatRequest, ChatResponse
 router = APIRouter()
 
 
-@router.post("/chat")
+@router.post("/chat", response_model = ChatResponse)
 async def chat(request: ChatRequest) -> ChatResponse:
-    return ChatResponse(answer=request.message)
+    
+    analysis = NLP_Engine.analyze(request.message)
+    response = IntentHandler.handle_intent(analysis)
+    return ChatResponse(answer=response)
    
 
