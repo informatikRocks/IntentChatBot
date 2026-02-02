@@ -1,48 +1,33 @@
+import json
+import os
 
-from .data_manager import DataManager
-
-
-class IntentHandler:
+class DataManager:
     def __init__(self):
-        self.data_manager = DataManager()
+        # Determine the path to profile.json relative to this file
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        self.data_path = os.path.join(base_dir, "data", "profile.json")
+        self.data = self._load_data()
 
-   def handle_intent(self, nlp_analysis):
+    def _load_data(self):
+        try:
+            with open(self.data_path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"Error loading data: {e}")
+            return {}
 
-    """Decides based on the NLP analysis what the user wants"""
-    entities = nlp_analysis.get("entities", [])
-    
-    detected_intents = [label for text, label in entities]
-    tech_filter = next ((text for text, label in entities if label =="TECH"), None)
-
-    if "INTENT_KONTAKT" in detected_intents:
-        return self.data_manager.get_contact_info()
-    
-    if "INTENT_PROJEKTE" in detected_intents:
-        return self.data_manager.get_projects(tech_filter)
-    
-    return "Ich verstehe nicht ganz. Kannst du das anders formulieren?"
-
-
-    def _handle_projects(self, tech_filter):
-        """Helpermethods for handling projects"""
-        projects = self.data_manager.get_projects(tech_filter)
-        if not projects:
-            return "Ich habe keine Projekte, die zu deiner Anfrage passen."
+    def get_projects(self, tech_filter=None):
+        projects = self.data.get("projects", [])
+        if not tech_filter:
+            return projects
         
-        response = "Hier sind einige meiner Projekte:"
-        if tech_filter:
-            response = f"Hier sind einige meiner {tech_filter} Projekte:"
-
+        filtered = []
         for p in projects:
-            stack_str = ", ".join(p.get("tech_stack", []))
-            response += f"\n- {p['name']}: {p['description']} (Stack: {stack_str})"
+            stack = [t.lower() for t in p.get("tech_stack", [])]
+            if tech_filter.lower() in stack:
+                filtered.append(p)
+        return filtered
 
-        return response
-    
-
-    def _handle_contact(self):
-        """Helpermethods for handling contact"""
-        contact = self.data_manager.get_contact_info()
-        return f"Du kannst mich unter {contact} erreichen."
-
-        
+    def get_contact_info(self):
+        profile = self.data.get("profile", {})
+        return profile.get("contact", "Keine Kontaktinfo verfügbar.")

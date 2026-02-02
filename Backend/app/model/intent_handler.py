@@ -6,21 +6,20 @@ class IntentHandler:
     def __init__(self):
         self.data_manager = DataManager()
 
-   def handle_intent(self, nlp_analysis):
+    def handle_intent(self, nlp_analysis):
+        """Decides based on the NLP analysis what the user wants"""
+        entities = nlp_analysis.get("entities", [])
+        
+        detected_intents = [label for text, label in entities]
+        tech_filter = next((text for text, label in entities if label == "TECH"), None)
 
-    """Decides based on the NLP analysis what the user wants"""
-    entities = nlp_analysis.get("entities", [])
-    
-    detected_intents = [label for text, label in entities]
-    tech_filter = next ((text for text, label in entities if label =="TECH"), None)
-
-    if "INTENT_KONTAKT" in detected_intents:
-        return self._handle_contact()
-    
-    if "INTENT_PROJEKTE" in detected_intents:
-        return self._handle_projects(tech_filter)
-    
-    return "Ich verstehe nicht ganz. Kannst du das anders formulieren?"
+        if "INTENT_KONTAKT" in detected_intents:
+            return self._handle_contact()
+        
+        if "INTENT_PROJEKTE" in detected_intents:
+            return self._handle_projects(tech_filter)
+        
+        return "Ich verstehe nicht ganz. Kannst du das anders formulieren?"
 
 
     def _handle_projects(self, tech_filter):
@@ -44,5 +43,3 @@ class IntentHandler:
         """Helpermethods for handling contact"""
         contact = self.data_manager.get_contact_info()
         return f"Du kannst mich unter {contact} erreichen."
-
-        
