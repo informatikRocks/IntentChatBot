@@ -6,7 +6,7 @@ class NLP_Engine:
     def __init__(self):
         self.nlp = spacy.load("de_core_news_sm")
         self.ruler=self.nlp.add_pipe("entity_ruler", before="ner")
-        self.setup_patterns()
+        self._setup_patterns()
 
 
     def _setup_patterns(self):
