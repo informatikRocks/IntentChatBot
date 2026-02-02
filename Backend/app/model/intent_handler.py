@@ -15,10 +15,10 @@ class IntentHandler:
     tech_filter = next ((text for text, label in entities if label =="TECH"), None)
 
     if "INTENT_KONTAKT" in detected_intents:
-        return self.data_manager.get_contact_info()
+        return self._handle_contact()
     
     if "INTENT_PROJEKTE" in detected_intents:
-        return self.data_manager.get_projects(tech_filter)
+        return self._handle_projects(tech_filter)
     
     return "Ich verstehe nicht ganz. Kannst du das anders formulieren?"
 
