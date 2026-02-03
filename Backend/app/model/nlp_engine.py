@@ -32,4 +32,4 @@ class NLP_Engine:
             "lemmas": [(token.text, token.lemma_) for token in doc if not token.is_stop]
         }
 
-    engine = NLP_Engine()
+engine = NLP_Engine()
