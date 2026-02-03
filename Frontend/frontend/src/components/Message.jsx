@@ -11,20 +11,19 @@ const Message = ({ role, content }) => {
                 <div className="flex-shrink-0 flex flex-col justify-end">
                     <div className={`
                         w-8 h-8 rounded-full flex items-center justify-center shadow-md
-                        ${isUser ? 'bg-chat-user' : 'bg-emerald-600'}
+                        ${isUser ? 'bg-chat-user' : 'bg-black'} 
                     `}>
+                        {/* ^^^ HIER GEÄNDERT: 'bg-black' statt 'bg-emerald-600' */}
+
                         {isUser ? (
+                            // User Icon (Dein SVG)
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                 <circle cx="12" cy="7" r="4"></circle>
                             </svg>
                         ) : (
-                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V11h-2V5.73A2.002 2.002 0 0 1 12 2Z"></path>
-                                <path d="M12 13a2 2 0 0 1 2 2v2h-4v-2c0-1.1.9-2 2-2Z"></path>
-                                <path d="M12 19a2 2 0 0 1 2 2v1h-4v-1c0-1.1.9-2 2-2Z"></path>
-                                <path d="M7.74 13.97a3 3 0 0 1 2.26-4.97V11h2V9a3 3 0 0 1 5 2.24"></path>
-                            </svg>
+                            // Bot Icon (Der weiße Punkt)
+                            <div className="w-3 h-3 bg-white rounded-full"></div>
                         )}
                     </div>
                 </div>
