@@ -7,19 +7,39 @@ class IntentHandler:
         self.data_manager = DataManager()
 
     def handle_intent(self, nlp_analysis):
-        """Decides based on the NLP analysis what the user wants"""
         entities = nlp_analysis.get("entities", [])
         
         detected_intents = [label for text, label in entities]
+        
         tech_filter = next((text for text, label in entities if label == "TECH"), None)
 
+
+        print(f"Erkannt: {detected_intents}, Tech: {tech_filter}")
+
+       
         if "INTENT_KONTAKT" in detected_intents:
             return self._handle_contact()
         
-        if "INTENT_PROJEKTE" in detected_intents:
+        if "INTENT_PROFILE" in detected_intents:
+            return self._handle_profile()
+
+       
+        if "INTENT_PROJEKTE" in detected_intents or tech_filter:
             return self._handle_projects(tech_filter)
         
+        if "INTENT_SKILLS" in detected_intents:
+            return self._handle_skills()
+        
+        if "INTENT_HOBBIES" in detected_intents:
+            return self._handle_hobbies()
+        
         return "Ich verstehe nicht ganz. Kannst du das anders formulieren?"
+
+ 
+    def _handle_profile(self):
+        name = self.data_manager.data.get("profile", {}).get("name", "Unbekannt")
+        role = self.data_manager.data.get("profile", {}).get("role", "Entwickler")
+        return f"Ich bin der Bot von {name}, einem {role}."
 
 
     def _handle_projects(self, tech_filter):
@@ -43,3 +63,9 @@ class IntentHandler:
         """Helpermethods for handling contact"""
         contact = self.data_manager.get_contact_info()
         return f"Du kannst mich unter {contact} erreichen."
+    
+    def _handle_skills(self):
+        pass
+
+    def _handle_hobbies(self): 
+        pass

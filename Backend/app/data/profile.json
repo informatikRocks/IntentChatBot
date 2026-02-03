@@ -1,26 +1,37 @@
 {
     "profile": {
         "name": "Simon Lelonek",
-        "role": "Python Developer",
-        "contact": "[EMAIL_ADDRESS]"
+        "role": "Student und Leidenschaftlicher Entwickler",
+        "location": "München", 
+        "bio": "Ich entwickle skalierbare Backend-Systeme und interessiere mich für KI-Integrationen.",
+        "contact": {
+            "email": "simon.lelonek@icloud.com",
+            "linkedin": "https://www.linkedin.com/in/simon-lelonek/",
+            "github": "https://github.com/informatikRocks"
+        },
+        "free-time": {
+            "hobbies": ["Lesen", "Sport", "Reisen"],
+            "favorite_books": ["Why leaders it last by Simon Sinek", "Deep Work by Cal Newport"]
+        }
     },
+    "skills": [
+        "Python", "FastAPI", "React", "Docker", "SQL", "Git", "Pytorch", "Spring Boot"
+    ],
     "projects": [
         {
+            "id": "chatbot",
             "name": "Portfolio Chatbot",
-            "description": "Ein KI-Bot mit FastAPI und spaCy.",
-            "tech_stack": [
-                "python",
-                "fastapi",
-                "spacy"
-            ]
+            "description": "Ein KI-Bot, der meine Projekte vorstellt. Nutzt spaCy für NLP.",
+            "tech_stack": ["python", "fastapi", "spacy"],
+            "url": "https://github.com/informatikRocks/chatbot-repo",
+            "live_demo": "https://mein-chatbot.de"
         },
         {
-            "name": "Dashboard",
-            "description": "Sales Dashboard.",
-            "tech_stack": [
-                "react",
-                "typescript"
-            ]
+            "id": "dashboard",
+            "name": "Sales Dashboard",
+            "description": "Interaktives Dashboard zur Visualisierung von Verkaufszahlen.",
+            "tech_stack": ["react", "typescript", "chart.js"],
+            "url": "https://github.com/informatikRocks/dashboard-repo"
         }
     ]
 }

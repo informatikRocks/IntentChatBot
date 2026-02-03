@@ -10,9 +10,15 @@ intent_handler = IntentHandler()
 
 @router.post("/chat", response_model = ChatResponse)
 async def chat(request: ChatRequest) -> ChatResponse:
+
+    print(f"Received message: {request.message}")
     
     analysis = engine.analyze(request.message)
     response = intent_handler.handle_intent(analysis)
+    print(f"Response: {response}")
+
+    if response is None:
+        response = "Entschuldigung, ich konnte deine Anfrage nicht verarbeiten."
     return ChatResponse(answer=response)
    
 
