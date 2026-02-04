@@ -1,7 +1,12 @@
+
+
+import os
+
 import json
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
+from pytorch_helper import save_model
 import numpy as np
 
 
@@ -9,7 +14,10 @@ from nltk_utils import tokenize, stem, bag_of_words
 from model import NeuralNet
 
 
-with open("data/intents.json", "r", encoding="utf-8") as f:
+script_dir = os.path.dirname(__file__)
+file_path = os.path.join(script_dir, "data/intents.json")
+
+with open(file_path, "r", encoding="utf-8") as f:
     intents = json.load(f)
 
 all_words = []
@@ -90,4 +98,4 @@ for epoch in range(num_epochs):
 
 print(f'final loss: {loss.item():.4f}')
 
-
+save_model(model, "data/saved_models", "chat_model.pth")
