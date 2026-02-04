@@ -1,7 +1,7 @@
 
 from fastapi import APIRouter
 from app.api.schemas import ChatRequest, ChatResponse
-from app.model.nlp_engine import engine
+from app.model.nlp_engine_spacy import engine
 from app.model.intent_handler import IntentHandler
 
 router = APIRouter()
