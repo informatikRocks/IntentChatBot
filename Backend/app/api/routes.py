@@ -19,6 +19,7 @@ async def chat(request: ChatRequest) -> ChatResponse:
 
     if response is None:
         response = "Entschuldigung, ich konnte deine Anfrage nicht verarbeiten."
+        
     return ChatResponse(answer=response)
    
 
