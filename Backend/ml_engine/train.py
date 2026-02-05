@@ -99,7 +99,7 @@ for epoch in range(num_epochs):
 print(f'final loss: {loss.item():.4f}')
 
 save_model(modl=model,
-              target_dir="data/saved_models",
+              target_dir="ml_engine/data/saved_models",
                 model_name="chat_model.pth",
                 input_size=input_size,
                 hidden_size=hidden_size,
