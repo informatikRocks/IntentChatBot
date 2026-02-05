@@ -22,15 +22,41 @@ def get_response(user_input: str) -> str:
     with open(PROFILE_PATH, "r", encoding="utf-8") as f:
         profile = json.load(f)
 
+
+    # Hilfs-Variablen für Listen (Arrays), damit sie im Text gut aussehen
+    # Wir machen aus ["A", "B"] -> "A, B"
+    skills_str = ", ".join(profile.get("tech_stack", []))
+    hobbies_str = ", ".join(profile.get("interests", {}).get("hobbies", []))
+    books_str = ", ".join(profile.get("interests", {}).get("favorite_books", []))
+
+   # Projekte aufbereiten (Name + Tech Stack)
+    project_list = []
+    for p in profile.get("projects", []):
+        p_tech = ", ".join(p.get("tech_stack", []))
+        project_list.append(f"{p['name']} ({p_tech})")
+    
+    projects_str = " | ".join(project_list) if project_list else "Momentan keine Projekte gelistet."
+
+
     # 3. Formatting the response with profile data
     try:
-        final_response= raw_response.format(
-            name=profile["profile"]["name"],
-            role=profile["profile"]["role"],
-            location=profile["profile"]["location"],
-            skills=", ".join(profile["skills"]),
-            email=profile["profile"]["contact"]["email"]
-            # Füge hier alle weiteren Platzhalter hinzu
+        final_response = raw_response.format(
+            # Profil-Basis-Infos
+            name=profile["personal_info"]["full_name"],
+            role=profile["personal_info"]["role"],
+            location=profile["personal_info"]["location"],
+            bio=profile["personal_info"]["bio"],
+            
+            # Kontakt-Infos
+            email=profile["personal_info"]["email"],
+            linkedin=profile["personal_info"]["linkedin"],
+            github=profile["personal_info"]["github"],
+            
+            # Listen (als formatierte Strings)
+            skills=skills_str,
+            hobbies=hobbies_str,
+            favorite_books=books_str,
+            projects=projects_str
         )
 
 

@@ -1,37 +1,33 @@
 {
-    "profile": {
-        "name": "Simon Lelonek",
-        "role": "Student und Leidenschaftlicher Entwickler",
-        "location": "München", 
-        "bio": "Ich entwickle skalierbare Backend-Systeme und interessiere mich für KI-Integrationen.",
-        "contact": {
-            "email": "simon.lelonek@icloud.com",
-            "linkedin": "https://www.linkedin.com/in/simon-lelonek/",
-            "github": "https://github.com/informatikRocks"
-        },
-        "free-time": {
-            "hobbies": ["Lesen", "Sport", "Reisen"],
-            "favorite_books": ["Why leaders it last by Simon Sinek", "Deep Work by Cal Newport"]
-        }
+    "personal_info": {
+        "full_name": "Simon Lelonek",
+        "role": "Student & Backend Developer",
+        "location": "München",
+        "bio": "Ich entwickle skalierbare Backend-Systeme und brenne für KI-Integrationen.",
+        "email": "simon.lelonek@icloud.com",
+        "linkedin": "https://www.linkedin.com/in/simon-lelonek/",
+        "github": "https://github.com/informatikRocks"
     },
-    "skills": [
-        "Python", "FastAPI", "React", "Docker", "SQL", "Git", "Pytorch", "Spring Boot"
+    "interests": {
+        "hobbies": ["Lesen", "Sport", "Reisen"],
+        "favorite_books": [
+            "Why Leaders Eat Last (Simon Sinek)",
+            "Deep Work (Cal Newport)"
+        ]
+    },
+    "tech_stack": [
+        "Python", "FastAPI", "React", "Docker", "SQL", "Git", "PyTorch", "Spring Boot"
     ],
     "projects": [
         {
             "id": "chatbot",
             "name": "Portfolio Chatbot",
-            "description": "Ein KI-Bot, der meine Projekte vorstellt. Nutzt spaCy für NLP.",
-            "tech_stack": ["python", "fastapi", "spacy"],
-            "url": "https://github.com/informatikRocks/chatbot-repo",
-            "live_demo": "https://mein-chatbot.de"
-        },
-        {
-            "id": "dashboard",
-            "name": "Sales Dashboard",
-            "description": "Interaktives Dashboard zur Visualisierung von Verkaufszahlen.",
-            "tech_stack": ["react", "typescript", "chart.js"],
-            "url": "https://github.com/informatikRocks/dashboard-repo"
+            "description": "KI-Stellvertreter mit eigenem PyTorch Neural Network.",
+            "tech_stack": ["Python", "FastAPI", "PyTorch", "NLTK"],
+            "links": {
+                "github": "https://github.com/...",
+                "demo": "https://..."
+            }
         }
     ]
 }
