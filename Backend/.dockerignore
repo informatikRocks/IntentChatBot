@@ -1,0 +1,8 @@
+.venv
+.git
+__pycache__
+.pytest_cache
+*.pth
+# Wir kopieren das Modell später gezielt, 
+# oder lassen es im Container, aber wir wollen 
+# keine lokalen Cache-Leichen.
