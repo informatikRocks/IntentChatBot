@@ -22,9 +22,11 @@ def get_response(user_input: str) -> str:
     with open(PROFILE_PATH, "r", encoding="utf-8") as f:
         profile = json.load(f)
 
+    info = profile.get("personal_info", {})
+    interests = profile.get("interests", {})
+    bot_cfg = profile.get("bot_config", {})
 
-    # Hilfs-Variablen für Listen (Arrays), damit sie im Text gut aussehen
-    # Wir machen aus ["A", "B"] -> "A, B"
+
     skills_str = ", ".join(profile.get("tech_stack", []))
     hobbies_str = ", ".join(profile.get("interests", {}).get("hobbies", []))
     books_str = ", ".join(profile.get("interests", {}).get("favorite_books", []))
@@ -42,6 +44,11 @@ def get_response(user_input: str) -> str:
     try:
         final_response = raw_response.format(
             # Profil-Basis-Infos
+            bot_name=bot_cfg.get("bot_name", "Portfolio-Bot"),
+            greeting_msg=bot_cfg.get("greeting_msg", "Hallo!"),
+            farewell_msg=bot_cfg.get("farewell_msg", "Bis bald!"),
+            thanks_msg=bot_cfg.get("thanks_msg", "Gern geschehen!"),
+            
             name=profile["personal_info"]["full_name"],
             role=profile["personal_info"]["role"],
             location=profile["personal_info"]["location"],

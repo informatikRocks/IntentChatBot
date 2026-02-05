@@ -1,4 +1,11 @@
 {
+
+    "bot_config": {
+        "bot_name": "Simon-Wingman",
+        "greeting_msg": "Schön, dass du da bist!",
+        "farewell_msg": "Hau rein! Melde dich jederzeit bei Simon.",
+        "thanks_msg": "Gerne! Hast du noch weitere Fragen zu Simons Projekten?"
+    },
     "personal_info": {
         "full_name": "Simon Lelonek",
         "role": "Student & Backend Developer",

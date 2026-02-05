@@ -40,7 +40,10 @@
         "Moin, was gibt's?",
         "Hallo, kurze Rückfrage"
       ],
-      "responses": ["Hey! Ich bin Simons digitaler Wingman. Wie kann ich dir heute helfen?", "Hi! Frag mich gerne nach Simons Projekten, Skills oder seinem Standort."]
+     "responses": [
+  "Hey! {greeting_msg} Ich bin {bot_name}, Simons digitaler Stellvertreter. Wie kann ich dir heute helfen?",
+  "Hi! Hier ist {bot_name}. Frag mich gerne nach Simons Projekten, Skills oder seinem Standort. {greeting_msg}"
+]
     },
     {
       "tag": "goodbye",
@@ -109,7 +112,11 @@
         "Bestens, danke",
         "Danke für die schnelle Antwort"
       ],
-      "responses": ["Sehr gerne!", "Kein Problem, frag ruhig noch mehr!"]
+     
+"responses": [
+  "{thanks_msg} Sehr gerne!",
+  "Kein Problem! {thanks_msg} Hast du noch weitere Fragen?"
+]
     },
     {
       "tag": "about_me",
