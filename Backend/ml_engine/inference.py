@@ -2,8 +2,8 @@ import torch
 import random 
 import json
 import os
-from model import NeuralNet
-from nltk_utils import tokenize, bag_of_words
+from ml_engine.model import NeuralNet
+from ml_engine.nltk_utils import tokenize, bag_of_words
 
 
 # Pfad Logik
@@ -18,7 +18,8 @@ with open(INTENTS_PATH, "r", encoding="utf-8") as json_data:
     intents = json.load(json_data)
 
 data = torch.load(MODEL_PATH)
-model = NeuralNet(data["input_size"], data["hidden_size"], data["output_size"]).to(device)
+print("Vorhandene Schlüssel in der Datei:", data.keys())
+model = NeuralNet(data["input_layer"], data["hidden_layer"], data["output_layer"]).to(device)
 model.load_state_dict(data["model_state"])
 model.eval()
 

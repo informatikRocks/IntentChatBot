@@ -4,22 +4,27 @@ from app.api.schemas import ChatRequest, ChatResponse
 from app.model.nlp_engine_spacy import engine
 from app.model.intent_handler import IntentHandler
 
+
+from app.model.nlp_engine import get_response
+from app.api.schemas import ChatRequest, ChatResponse
+
 router = APIRouter()
-intent_handler = IntentHandler()
+
 
 
 @router.post("/chat", response_model = ChatResponse)
 async def chat(request: ChatRequest) -> ChatResponse:
+    """
+    Dieser Endpunkt nimmt die Nachricht entgegen, jagt sie durch das 
+    PyTorch-Modell und gibt die Antwort aus der profile.json zurück.
+    """
 
-    print(f"Received message: {request.message}")
+    print(f"User fragt: {request.message}")
+    bot_answer = get_response(request.message)
+    print(f"Bot antwortet: {bot_answer}")
+    return ChatResponse(response=bot_answer)
+
+
+
     
-    analysis = engine.analyze(request.message)
-    response = intent_handler.handle_intent(analysis)
-    print(f"Response: {response}")
-
-    if response is None:
-        response = "Entschuldigung, ich konnte deine Anfrage nicht verarbeiten."
-        
-    return ChatResponse(answer=response)
-   
 

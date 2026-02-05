@@ -98,4 +98,11 @@ for epoch in range(num_epochs):
 
 print(f'final loss: {loss.item():.4f}')
 
-save_model(model, "/Users/simon/Documents/Studium/ProveWrong/Projects/IntentChatBot/IntentChatBot/Backend/ml_engine/data/saved_models", "chat_model.pth")
+save_model(modl=model,
+              target_dir="data/saved_models",
+                model_name="chat_model.pth",
+                input_size=input_size,
+                hidden_size=hidden_size,
+                output_size=output_size,
+                all_words=all_words,
+                tags=tags)
