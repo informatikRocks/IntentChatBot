@@ -53,6 +53,6 @@ def get_intent_response(msg: str) -> str:
     if prob.item() > 0.75:
         for intent in intents["intents"]:
             if tag == intent["tag"]:
-                return random.choice(intent["responses"])
+                return tag, random.choice(intent["responses"])
     
-    return "Entschuldigung, das habe ich nicht verstanden. Kannst du das anders formulieren?"
+    return "no_intent", "Entschuldigung, das habe ich nicht verstanden. Kannst du das anders formulieren?"
