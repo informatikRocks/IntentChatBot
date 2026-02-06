@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  # Dein Python KI-Backend
+  backend:
+    platform: linux/amd64
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/backend
+    # Sorgt dafür, dass Python Logs sofort im Terminal erscheinen
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  # Dein React Frontend
+  frontend:
+    platform: linux/amd64
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      # Verhindert, dass die lokalen node_modules die im Container überschreiben
+      - /app/node_modules
+    depends_on:
+      - backend
