@@ -1,7 +1,9 @@
-FROM --platform=linux/arm64 python:3.13-slim
+FROM --platform=$BUILDPLATFORM ghcr.io/astral-sh/uv:latest AS uv-stage
 
-# uv Installation (explizit arm64)
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+FROM python:3.13-slim
+
+# uv Installation aus dem richtigen Stage
+COPY --from=uv-stage /uv /uvx /bin/
 
 # Arbeitsverzeichnis
 WORKDIR /backend
