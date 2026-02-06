@@ -12,14 +12,15 @@
         "location": "München",
         "bio": "Ich entwickle skalierbare Backend-Systeme und brenne für KI-Integrationen.",
         "email": "simon.lelonek@icloud.com",
-        "linkedin": "https://www.linkedin.com/in/simon-lelonek/",
+        "linkedin": "https://www.linkedin.com/in/simon-lelonek-182a57358/",
         "github": "https://github.com/informatikRocks"
     },
     "interests": {
         "hobbies": ["Lesen", "Sport", "Reisen"],
         "favorite_books": [
             "Why Leaders Eat Last (Simon Sinek)",
-            "Deep Work (Cal Newport)"
+            "Cant Hurt Me (David Goggins)",
+            "Die Mitternachtsbibliothek (Matt Haig)"
         ]
     },
     "tech_stack": [
@@ -32,8 +33,8 @@
             "description": "KI-Stellvertreter mit eigenem PyTorch Neural Network.",
             "tech_stack": ["Python", "FastAPI", "PyTorch", "NLTK"],
             "links": {
-                "github": "https://github.com/...",
-                "demo": "https://..."
+                "github": "https://github.com/informatikRocks/IntentChatBot"
+                
             }
         }
     ]
