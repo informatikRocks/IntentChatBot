@@ -3,7 +3,7 @@ import random
 import json
 import os
 from ml_engine.model import NeuralNet
-from ml_engine.nltk_utils import tokenize, bag_of_words
+from ml_engine.utils.nltk_utils import tokenize, bag_of_words
 
 
 # Pfad Logik

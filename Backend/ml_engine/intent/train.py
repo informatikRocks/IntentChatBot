@@ -1,21 +1,27 @@
-
-
 import os
-
 import json
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, Dataset
-from pytorch_helper import save_model
+import sys
 import numpy as np
 
 
-from nltk_utils import tokenize, stem, bag_of_words
-from model import NeuralNet
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# 2. Wo ist der ml_engine Ordner? (.../Backend/ml_engine)
+ml_engine_dir = os.path.dirname(current_dir)
+# 3. Wo ist der Backend Ordner? (.../Backend)
+backend_dir = os.path.dirname(ml_engine_dir)
+sys.path.append(backend_dir)
 
 
-script_dir = os.path.dirname(__file__)
-file_path = os.path.join(script_dir, "data/intents.json")
+from ml_engine.utils.pytorch_helper import save_model
+from ml_engine.utils.nltk_utils import tokenize, stem, bag_of_words
+# model.py liegt im selben Ordner, daher klappt dieser Import direkt:
+from model import NeuralNet 
+
+# Pfad zur intents.json (Backend/data/intents.json)
+file_path = os.path.join(backend_dir, "data/intents.json")
 
 with open(file_path, "r", encoding="utf-8") as f:
     intents = json.load(f)
@@ -23,7 +29,6 @@ with open(file_path, "r", encoding="utf-8") as f:
 all_words = []
 tags = []
 xy = []
-
 
 for intent in intents["intents"]:
     tag = intent["tag"]
@@ -38,18 +43,14 @@ all_words = [stem(w) for w in all_words if w not in ignore_words]
 all_words = sorted(set(all_words))
 tags = sorted(set(tags))
 
-
 X_train = []
 y_train = []
 
 for (pattern_sentence, tag) in xy:
     bag = bag_of_words(pattern_sentence, all_words)
     X_train.append(bag)
-
     label = tags.index(tag)
     y_train.append(label)
-
-
 
 class ChatDataset(Dataset):
     def __init__(self):
@@ -62,7 +63,6 @@ class ChatDataset(Dataset):
 
     def __len__(self):
         return self.n_samples
-    
 
 # Hyperparameters
 batch_size = 8
@@ -72,7 +72,7 @@ output_size = len(tags)
 learning_rate = 0.001
 num_epochs = 1000
 
-dataset= ChatDataset()
+dataset = ChatDataset()
 train_loader = DataLoader(dataset=dataset, batch_size=batch_size, shuffle=True)
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -80,6 +80,8 @@ model = NeuralNet(input_size, hidden_size, output_size).to(device)
 
 loss_function = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+
+print("Starte Intent Training...")
 for epoch in range(num_epochs):
     for(words, labels) in train_loader:
         words = words.to(device)
@@ -92,17 +94,21 @@ for epoch in range(num_epochs):
         loss.backward()
         optimizer.step()
 
-
     if (epoch+1) % 100 == 0:
         print (f'Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item():.4f}')
 
 print(f'final loss: {loss.item():.4f}')
 
+# Speichern im zentralen data Ordner
+save_path = os.path.join(backend_dir, "data/saved_models")
+# Sicherstellen, dass der Ordner existiert
+os.makedirs(save_path, exist_ok=True)
+
 save_model(modl=model,
-              target_dir="ml_engine/data/saved_models",
-                model_name="chat_model.pth",
-                input_size=input_size,
-                hidden_size=hidden_size,
-                output_size=output_size,
-                all_words=all_words,
-                tags=tags)
+           target_dir=save_path,
+           model_name="chat_model.pth",
+           input_size=input_size,
+           hidden_size=hidden_size,
+           output_size=output_size,
+           all_words=all_words,
+           tags=tags)
