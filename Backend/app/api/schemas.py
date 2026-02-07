@@ -4,6 +4,8 @@ from typing import List, Optional
 class ChatResponse(BaseModel):
     """Response from the chat endpoint"""   
     answer: str
+    sentiment:str
+    intent:str
 
 
 class ChatRequest(BaseModel):

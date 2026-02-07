@@ -4,7 +4,7 @@ from ml_engine.inference import get_inference_response
 
 PROFILE_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "profile.json")
 
-def get_response(user_input: str) -> str:
+def get_response(user_input: str) -> dict:
     """
     Get a response from the NLP engine based on user input.
     Returns a dictionary with text, sentiment, and intent.
@@ -12,6 +12,17 @@ def get_response(user_input: str) -> str:
    # 1. Asking which intent the user input corresponds to
 
     tag, raw_response, sentiment = get_inference_response(user_input)
+    prefix=""
+    if sentiment == "negative":
+        prefix = "Oje, das klingt nicht gut. 😔 "
+    
+        if tag == "unknown":
+            raw_response = "Ich merke, du bist unzufrieden. Schreib mir doch direkt eine Mail."
+    elif sentiment =="positive":
+        if tag not in ["goodbye", "thanks"]:
+            prefix = "Das freut mich zu hören! 😊 "
+
+    raw_response = prefix + raw_response
 
     # 2. Loading profile data
     with open(PROFILE_PATH, "r", encoding="utf-8") as f:
@@ -66,4 +77,8 @@ def get_response(user_input: str) -> str:
         print(f"Fehlender Platzhalter in der Antwort: {e}")
         final_response = raw_response  # Fallback zur rohen Antwort
 
-    return final_response
+    return {
+        "text": final_response,
+        "sentiment": sentiment,
+        "intent": tag
+    }
