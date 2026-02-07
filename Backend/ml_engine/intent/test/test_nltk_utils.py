@@ -4,7 +4,7 @@ import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from nltk_utils import tokenize, stem, bag_of_words
+from ml_engine.utils.nltk_utils import tokenize, stem, bag_of_words
 
 phrase = "Hallo Simon, was sind deine Hobbys?"
 tokens = tokenize(phrase)

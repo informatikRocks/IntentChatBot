@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-// Sidebar removed
+import React from 'react';
 import ChatArea from './ChatArea';
 
 const Layout = () => {
     return (
-        <div className="flex h-screen overflow-hidden bg-chat-bg text-chat-text">
+        <div className="flex h-screen w-full overflow-hidden">
             <ChatArea />
         </div>
     );

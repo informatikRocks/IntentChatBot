@@ -3,27 +3,56 @@
 @theme {
   --color-chat-bg: #0f172a;
   --color-chat-sidebar: #020617;
-  --color-chat-user: #2563eb;
-  --color-chat-bot: #1e293b;
-  --color-chat-text: #e2e8f0;
-  --color-chat-text-secondary: #94a3b8;
-  --color-chat-input: #1e293b;
-  --color-chat-input-focus: #334155;
-  --color-chat-border: #334155;
+  
+  /* Modern Gradients & Accents */
+  --color-chat-user-start: #3b82f6; /* Blue-500 */
+  --color-chat-user-end: #8b5cf6;   /* Violet-500 */
+  
+  --color-chat-bot-bg: rgba(255, 255, 255, 0.05);
+  --color-chat-bot-border: rgba(255, 255, 255, 0.1);
+
+  --color-chat-text: #f8fafc;       /* Slate-50 */
+  --color-chat-text-secondary: #94a3b8; /* Slate-400 */
+  
+  --color-chat-input-bg: rgba(15, 23, 42, 0.6);
+  --color-chat-input-focus: rgba(30, 41, 59, 0.8);
+  --color-chat-border: rgba(255, 255, 255, 0.1);
   
   --font-sans: "Inter", system-ui, sans-serif;
+  
+  /* Animation Basics */
+  --animate-fade-in-up: fadeInUp 0.5s ease-out forwards;
+}
+
+/* Custom Keyframes if needed outside of Framer helper */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 body {
   background-color: var(--color-chat-bg);
+  /* Add a subtle gradient background globally */
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+  background-attachment: fixed;
   color: var(--color-chat-text);
   margin: 0;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
+/* Modern Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -31,10 +60,10 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: rgba(255, 255, 255, 0.2);
 }
