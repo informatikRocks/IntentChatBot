@@ -6,26 +6,36 @@ from torch.utils.data import DataLoader, Dataset
 import sys
 import numpy as np
 
-
+# --- PFAD-MAGIE ---
+# 1. Wo bin ich? (.../Backend/ml_engine/intent)
 current_dir = os.path.dirname(os.path.abspath(__file__))
 # 2. Wo ist der ml_engine Ordner? (.../Backend/ml_engine)
 ml_engine_dir = os.path.dirname(current_dir)
 # 3. Wo ist der Backend Ordner? (.../Backend)
 backend_dir = os.path.dirname(ml_engine_dir)
-sys.path.append(backend_dir)
 
+# Den Backend-Ordner zum Systempfad hinzufügen (für utils)
+sys.path.append(backend_dir)
+# Den aktuellen Ordner hinzufügen (für model.py im gleichen Ordner)
+sys.path.append(current_dir)
 
 from ml_engine.utils.pytorch_helper import save_model
 from ml_engine.utils.nltk_utils import tokenize, stem, bag_of_words
-# model.py liegt im selben Ordner, daher klappt dieser Import direkt:
 from model import NeuralNet 
 
-# Pfad zur intents.json (Backend/data/intents.json)
-file_path = os.path.join(backend_dir, "data/intents.json")
+# --- KORREKTUR 1: LADE DATEN ---
+# Die intents.json liegt in ml_engine/data/intents.json
+file_path = os.path.join(ml_engine_dir, "data/intents.json")
+
+# Sicherheits-Check
+if not os.path.exists(file_path):
+    print(f"FEHLER: Datei nicht gefunden unter: {file_path}")
+    sys.exit(1)
 
 with open(file_path, "r", encoding="utf-8") as f:
     intents = json.load(f)
 
+# --- AB HIER BLEIBT ALLES GLEICH ---
 all_words = []
 tags = []
 xy = []
@@ -99,8 +109,10 @@ for epoch in range(num_epochs):
 
 print(f'final loss: {loss.item():.4f}')
 
-# Speichern im zentralen data Ordner
-save_path = os.path.join(backend_dir, "data/saved_models")
+# --- KORREKTUR 2: SPEICHERORT ---
+# Wir speichern in ml_engine/data/saved_models (genau wie beim Sentiment)
+save_path = os.path.join(ml_engine_dir, "data/saved_models")
+
 # Sicherstellen, dass der Ordner existiert
 os.makedirs(save_path, exist_ok=True)
 
